@@ -11,27 +11,20 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * O caminho para onde “/” deve apontar após login (não é tão importante aqui).
-     *
-     * @var string
-     */
-    public const HOME = '/home';
-
-    /**
-     * Configurações iniciais de roteamento.
+     * Defina seus agrupamentos de rotas.
      */
     public function boot(): void
     {
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            // Carrega rotas de API com prefixo “api” e middleware “api”
+            // Rotas de API (prefixo "api", middleware "api")
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace('App\Http\Controllers')
                 ->group(base_path('routes/api.php'));
 
-            // Carrega rotas web (web middleware)
+            // Rotas web (middleware "web")
             Route::middleware('web')
                 ->namespace('App\Http\Controllers')
                 ->group(base_path('routes/web.php'));
@@ -39,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define limite de requisições para API (rate limiting).
+     * Configura o rate limiting da API.
      */
     protected function configureRateLimiting(): void
     {
